@@ -1,0 +1,27 @@
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "nobi4",
+    "password": "thang123"
+}
+
+### 
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "nobi2",
+    "password" : "thang123"
+}
+
+### 
+POST http://localhost:5000/api/posts
+Content-Type: application/json
+
+{
+    "title" : "My second post",
+    "description" : "bcd",
+    "url" : "google.com",
+    "status" : "TO LEARN"
+}
