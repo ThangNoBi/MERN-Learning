@@ -14,6 +14,7 @@ export const UpdatePostModal = () => {
 
   // State
   const [updatedPost, setUpdatedPost] = useState(post);
+  const [validated, setValidated] = useState(false);
 
   const { title, description, url, status } = updatedPost;
 
@@ -36,9 +37,19 @@ export const UpdatePostModal = () => {
   // HandleSubmit Form
   const handleSubmitForm = async (e) => {
     e.preventDefault();
+
+    setValidated(true);
+
     const { message, success } = await updatePost(updatedPost);
-    setShowUpdatePostModal(false);
-    setShowToast({ show: true, message, type: success ? "info" : "danger" });
+
+    if (title && url !== "") {
+      setShowUpdatePostModal(false);
+    }
+    setShowToast({
+      show: true,
+      message,
+      type: success ? "info" : "danger",
+    });
   };
 
   return (
@@ -46,7 +57,7 @@ export const UpdatePostModal = () => {
       <Modal.Header closeButton>
         <Modal.Title>What do you want to learn</Modal.Title>
       </Modal.Header>
-      <Form onSubmit={handleSubmitForm}>
+      <Form onSubmit={handleSubmitForm} noValidate validated={validated}>
         <Modal.Body>
           <Form.Group>
             <Form.Control
@@ -56,11 +67,10 @@ export const UpdatePostModal = () => {
               value={title}
               onChange={handleChangeUpdatedPost}
               required
-              aria-describedby="title-help"
             />
-            <Form.Text id="title-help" muted>
-              Required
-            </Form.Text>
+            <Form.Control.Feedback type="invalid">
+              Title is required
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="my-3">
@@ -77,16 +87,21 @@ export const UpdatePostModal = () => {
           <Form.Group>
             <Form.Control
               type="text"
-              placeholder="Youtube Tutorial URL"
+              placeholder="URL"
               name="url"
               value={url}
+              required
               onChange={handleChangeUpdatedPost}
             />
+            <Form.Control.Feedback type="invalid">
+              URL is required
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group>
             <Form.Control
               as="select"
+              className="mt-3"
               name="status"
               value={status}
               onChange={handleChangeUpdatedPost}
@@ -98,11 +113,11 @@ export const UpdatePostModal = () => {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseDialog}>
+          <Button variant="outline-secondary" onClick={handleCloseDialog}>
             Cancel
           </Button>
-          <Button variant="primary" type="submit">
-            LearnIt
+          <Button variant="outline-success" type="submit">
+            Update
           </Button>
         </Modal.Footer>
       </Form>

@@ -30,8 +30,7 @@ export const Auth = ({ authRoute }) => {
     <div className="landing">
       <div className="dark-overlay">
         <div className="landing-inner">
-          <h1>Learn</h1>
-          <h4>Keep track of what you are learning</h4>
+          {authRoute === "login" ? <h1>Sign In</h1> : <h1>Register</h1>}
           {body}
         </div>
       </div>

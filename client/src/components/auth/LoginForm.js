@@ -36,6 +36,7 @@ const LoginForm = () => {
       const loginData = await loginUser(loginForm);
       if (!loginData.success) {
         setAlert({ type: "danger", message: loginData.message });
+        // console.log("Logg :", loginData.message);
         setTimeout(() => setAlert(null), 3000);
       }
     } catch (error) {
@@ -53,7 +54,7 @@ const LoginForm = () => {
             placeholder="Username"
             name="username"
             value={username}
-            required
+            // required
             onChange={handleChangeLoginForm}
             className="mt-2"
           />
@@ -65,18 +66,18 @@ const LoginForm = () => {
             name="password"
             value={password}
             onChange={handleChangeLoginForm}
-            required
+            // required
             className="my-3"
           />
         </Form.Group>
-        <Button variant="info" type="submit" className="mb-2">
+        <Button variant="info" type="submit" size="lg" className="mb-2">
           Login
         </Button>
       </Form>
       <p>
         Don't have an account?
         <Link to="/register">
-          <Button variant="success" size="sm" className="ml-2">
+          <Button variant="success" size="md" style={{ marginLeft: "10px" }}>
             Register
           </Button>
         </Link>

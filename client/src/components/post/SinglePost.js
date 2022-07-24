@@ -19,7 +19,7 @@ export const SinglePost = ({
       <Card.Title>
         <Row>
           <Col>
-            <p className="post-title">{title}</p>
+            <h3 className="post-title">{title}</h3>
             <Badge
               pill
               bg={
@@ -39,7 +39,8 @@ export const SinglePost = ({
           </Col>
         </Row>
       </Card.Title>
-      <Card.Text>{description}</Card.Text>
+
+      <span>{description}</span>
     </Card.Body>
   </Card>
 );

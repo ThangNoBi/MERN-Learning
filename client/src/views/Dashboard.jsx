@@ -15,6 +15,7 @@ import { AddPostModal } from "../components/post/AddPostModal";
 import { SinglePost } from "../components/post/SinglePost";
 import addIcon from "../assets/plus-circle-fill.svg";
 import { UpdatePostModal } from "../components/post/UpdatePostModal";
+import DeletePostModal from "../components/post/DeletePostModal";
 
 export const Dashboard = () => {
   // Auth Context
@@ -57,7 +58,13 @@ export const Dashboard = () => {
             <Card.Text>
               Click to the button below to track your first skill to learn
             </Card.Text>
-            <Button variant="success">LearnIt</Button>
+            <Button
+              variant="success"
+              onClick={setShowPostModal.bind(this, true)}
+              size="lg"
+            >
+              LearnIt Here
+            </Button>
           </Card.Body>
         </Card>
       </>
@@ -69,6 +76,7 @@ export const Dashboard = () => {
           {posts.map((post) => (
             <Col key={post._id} className="my-2">
               <SinglePost post={post} />
+              <DeletePostModal onProps={post} />
             </Col>
           ))}
         </Row>
@@ -89,6 +97,7 @@ export const Dashboard = () => {
     );
   }
 
+  // Show Toast
   toast = (
     <Toast
       show={show}

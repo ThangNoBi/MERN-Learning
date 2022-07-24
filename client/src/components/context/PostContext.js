@@ -23,6 +23,7 @@ const PostContextProvider = ({ children }) => {
 
   const [showPostModal, setShowPostModal] = useState(false);
   const [showUpdatePostModal, setShowUpdatePostModal] = useState(false);
+  const [showDeletePostModal, setShowDeletePostModal] = useState(false);
   const [showToast, setShowToast] = useState({
     show: false,
     message: "",
@@ -113,6 +114,8 @@ const PostContextProvider = ({ children }) => {
     setShowPostModal,
     showUpdatePostModal,
     setShowUpdatePostModal,
+    showDeletePostModal,
+    setShowDeletePostModal,
     showToast,
     setShowToast,
     deletePost,

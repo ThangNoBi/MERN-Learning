@@ -1,7 +1,7 @@
 export const apiURL =
   process.env.NODE_ENV !== "production"
     ? "http://localhost:5000/api"
-    : "somedeployedURL";
+    : "https://boiling-harbor-71263.herokuapp.com/api";
 
 export const LOCALSTORAGE_TOKEN = "learnit-mern";
 

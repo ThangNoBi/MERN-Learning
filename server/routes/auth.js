@@ -30,10 +30,14 @@ router.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
   //Simple validation
-  if (!username || !password)
+  if (!username)
     return res
       .status(400)
-      .json({ success: false, message: "Missing username or password" });
+      .json({ success: false, message: "Please type username" });
+  else if (!password)
+    return res
+      .status(400)
+      .json({ success: false, message: "Please type password" });
 
   try {
     // Check xem username đó đã tồn tại chưa
@@ -73,10 +77,14 @@ router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   // Simple validation
-  if (!username || !password)
+  if (!username)
     return res
       .status(400)
-      .json({ success: false, message: "Missing username or password" });
+      .json({ success: false, message: "Please type username" });
+  else if (!password)
+    return res
+      .status(400)
+      .json({ success: false, message: "Please type password" });
 
   try {
     // Check for existing user

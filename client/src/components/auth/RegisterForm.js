@@ -16,6 +16,7 @@ const RegisterForm = () => {
   });
 
   const [alert, setAlert] = useState(null);
+  // const [validated, setValidated] = useState(false);
 
   const { username, password, confirmPassword } = registerForm;
 
@@ -38,6 +39,14 @@ const RegisterForm = () => {
       return;
     }
 
+    // const form = e.currentTarget;
+    // if (form.checkValidity() === false) {
+    //   e.preventDefault();
+    //   e.stopPropagation();
+    // }
+
+    // setValidated(true);
+
     try {
       const registerData = await registerUser(registerForm);
       if (!registerData.success) {
@@ -51,9 +60,13 @@ const RegisterForm = () => {
 
   return (
     <>
-      <Form onSubmit={register}>
+      <Form
+        onSubmit={register}
+        noValidate
+        // validated={validated}
+      >
         <AlertMessage info={alert} />
-        <Form.Group>
+        <Form.Group controlId="validationCustomUsername">
           <Form.Control
             type="text"
             placeholder="Username"
@@ -63,6 +76,9 @@ const RegisterForm = () => {
             required
             className="mt-2"
           />
+          <Form.Control.Feedback type="invalid">
+            Please choose a username.
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
           <Form.Control
@@ -86,14 +102,14 @@ const RegisterForm = () => {
             className="mb-3"
           />
         </Form.Group>
-        <Button variant="success" type="submit" className="my-2">
+        <Button variant="success" type="submit" size="lg" className="my-2">
           Register
         </Button>
       </Form>
       <p>
         Already an account?
         <Link to="/login">
-          <Button variant="info" size="sm" className="ml-2">
+          <Button variant="info" size="md" style={{ marginLeft: "10px" }}>
             Login
           </Button>
         </Link>

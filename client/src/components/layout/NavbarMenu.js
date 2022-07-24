@@ -20,7 +20,10 @@ export const NavbarMenu = () => {
 
   return (
     <Navbar expand="lg" bg="success" variant="light" className="shadow">
-      <Navbar.Brand className="fw-bolder text-white">
+      <Navbar.Brand
+        className="fw-bolder text-white"
+        style={{ marginLeft: "16px" }}
+      >
         <img
           src={learnItLogo}
           alt="learnitLogo"

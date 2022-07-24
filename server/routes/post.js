@@ -6,7 +6,7 @@ const verifyToken = require("../middleware/auth");
 const Post = require("../models/Post");
 
 // @route GET api/posts
-// @desc GET posts
+// @desc GET  POST
 // @access Private
 router.get("/", verifyToken, async (req, res) => {
   try {
@@ -19,7 +19,7 @@ router.get("/", verifyToken, async (req, res) => {
 });
 
 // @route POST api/posts
-// @desc Create post
+// @desc CREATE POST
 // @access Private
 router.post("/", verifyToken, async (req, res) => {
   const { title, description, url, status } = req.body;
@@ -29,6 +29,8 @@ router.post("/", verifyToken, async (req, res) => {
     return res
       .status(400)
       .json({ success: false, message: "Title is required" });
+  else if (!url)
+    return res.status(400).json({ success: false, message: "Url is required" });
 
   try {
     const newPost = new Post({
@@ -48,6 +50,7 @@ router.post("/", verifyToken, async (req, res) => {
   }
 });
 
+// UPDATE POST
 router.put("/:id", verifyToken, async (req, res) => {
   const { title, description, url, status } = req.body;
 
@@ -56,6 +59,8 @@ router.put("/:id", verifyToken, async (req, res) => {
     return res
       .status(400)
       .json({ success: false, message: "Title is required" });
+  else if (!url)
+    return res.status(400).json({ success: false, message: "Url is required" });
 
   try {
     let updatedPost = {
@@ -89,6 +94,7 @@ router.put("/:id", verifyToken, async (req, res) => {
   }
 });
 
+// DELETE POST
 router.delete("/:id", verifyToken, async (req, res) => {
   try {
     const postDelCondition = { _id: req.params.id, user: req.userId };

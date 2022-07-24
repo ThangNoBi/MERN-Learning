@@ -7,8 +7,12 @@ import { PostContext } from "../context/PostContext";
 
 export const ActionButtons = ({ url, id }) => {
   // Context
-  const { deletePost, findPost, setShowUpdatePostModal } =
-    useContext(PostContext);
+  const {
+    deletePost,
+    findPost,
+    setShowUpdatePostModal,
+    setShowDeletePostModal,
+  } = useContext(PostContext);
 
   const handleChooseEditPost = (postId) => {
     findPost(postId);
@@ -32,7 +36,8 @@ export const ActionButtons = ({ url, id }) => {
           alt="delete"
           width="24"
           height="24"
-          onClick={deletePost.bind(this, id)}
+          onClick={setShowDeletePostModal.bind(this, true)}
+          // onClick={deletePost.bind(this, id)}
         />
       </Button>
     </>

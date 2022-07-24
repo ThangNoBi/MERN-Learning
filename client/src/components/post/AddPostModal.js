@@ -17,6 +17,8 @@ export const AddPostModal = () => {
 
   const { title, description, url } = newPost;
 
+  const [validated, setValidated] = useState(false);
+
   const handleChangeNewPost = (e) => {
     let { name, value } = e.target;
     setNewPost({
@@ -39,8 +41,15 @@ export const AddPostModal = () => {
   // HandleSubmit Form
   const handleSubmitForm = async (e) => {
     e.preventDefault();
+
     const { message, success } = await addPost(newPost);
-    handleResetData();
+    if (title && url !== "") {
+      handleResetData();
+      setValidated(false);
+    } else {
+      setValidated(true);
+    }
+    // handleResetData();
     setShowToast({ show: true, message, type: success ? "info" : "danger" });
   };
 
@@ -49,7 +58,7 @@ export const AddPostModal = () => {
       <Modal.Header closeButton>
         <Modal.Title>What do you want to learn</Modal.Title>
       </Modal.Header>
-      <Form onSubmit={handleSubmitForm}>
+      <Form onSubmit={handleSubmitForm} noValidate validated={validated}>
         <Modal.Body>
           <Form.Group>
             <Form.Control
@@ -61,9 +70,9 @@ export const AddPostModal = () => {
               required
               aria-describedby="title-help"
             />
-            <Form.Text id="title-help" muted>
-              Required
-            </Form.Text>
+            <Form.Control.Feedback type="invalid">
+              Title is required
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="my-3">
@@ -80,18 +89,22 @@ export const AddPostModal = () => {
           <Form.Group>
             <Form.Control
               type="text"
-              placeholder="Youtube Tutorial URL"
+              placeholder="URL"
               name="url"
               value={url}
+              required
               onChange={handleChangeNewPost}
             />
+            <Form.Control.Feedback type="invalid">
+              URL is required
+            </Form.Control.Feedback>
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleResetData}>
+          <Button variant="outline-secondary" onClick={handleResetData}>
             Cancel
           </Button>
-          <Button variant="primary" type="submit">
+          <Button variant="outline-primary" type="submit">
             LearnIt
           </Button>
         </Modal.Footer>
