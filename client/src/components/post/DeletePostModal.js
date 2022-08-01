@@ -2,10 +2,16 @@ import React, { useContext } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { PostContext } from "../context/PostContext";
 
-const DeletePostModal = ({ onProps: { _id } }) => {
+const DeletePostModal = () => {
   // Context
-  const { showDeletePostModal, setShowDeletePostModal, deletePost } =
-    useContext(PostContext);
+  const {
+    postState: {
+      post: { _id },
+    },
+    showDeletePostModal,
+    setShowDeletePostModal,
+    deletePost,
+  } = useContext(PostContext);
 
   const handleCloseModal = () => {
     setShowDeletePostModal(false);
@@ -14,6 +20,7 @@ const DeletePostModal = ({ onProps: { _id } }) => {
   const clickDel = (id) => {
     deletePost(id);
     setShowDeletePostModal(false);
+    console.log("Show ID from Modal", id);
   };
 
   return (
@@ -26,12 +33,7 @@ const DeletePostModal = ({ onProps: { _id } }) => {
           <Button variant="outline-secondary" onClick={handleCloseModal}>
             Cancel
           </Button>
-          <Button
-            variant="outline-danger"
-            onClick={() => {
-              clickDel(_id);
-            }}
-          >
+          <Button variant="outline-danger" onClick={clickDel.bind(this, _id)}>
             Delete
           </Button>
         </Modal.Footer>

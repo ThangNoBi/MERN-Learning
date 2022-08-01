@@ -37,11 +37,9 @@ export const UpdatePostModal = () => {
   // HandleSubmit Form
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-
     setValidated(true);
 
     const { message, success } = await updatePost(updatedPost);
-
     if (title && url !== "") {
       setShowUpdatePostModal(false);
     }
